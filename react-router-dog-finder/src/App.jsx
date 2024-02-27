@@ -1,15 +1,30 @@
 import { useState } from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Dogs from "./Dogs"
+import Nav from './Nav'
+
+let nameArr = []
 
 function App() {
-  
+  for (let i of props.dogs){
+    nameArr.push(i.name)
+  }
 
   return (
     <>
-      <Dogs />
+    <Nav dogs={dogs}/>
+    <Switch>
+    <Route exact path="/dogs" >
+      <DogList dogs={dogs}/> // what props will this need?
+    </Route>
+    <Route path="/dogs/:name" >
+      <DogDetails name={}/> // what props will this need?
+    </Route>
+    <Redirect to="/dogs" />
+  </Switch>
     </>
   )
 }
