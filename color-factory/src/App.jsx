@@ -1,33 +1,38 @@
 import { useState } from 'react'
+import { Routes, Route, Navigate, useParams } from 'react-router-dom'
+import Nav from './Nav'
+import ColorForm from './ColorForm'
+import ColorList from './ColorList'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [colors, setColor] = useState(["red", "green", "blue"])
+  const [showForm, setShowForm] = useState(false)
+
+  const addColor = newColor =>(
+    setColor(colors => [...colors, ...newColor])
+  )
+
+  
+
+  const handleAddColorClick = () => {
+    setShowForm(true);
+  };
+
+  const handleColorSubmit = (color) => {
+    console.log('Submitted color:', color);
+    setShowForm(false); // Hide the form after submission
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <Nav addColor={handleAddColorClick} />    
+    {showForm && <ColorForm onSubmit={handleColorSubmit} addColor={addColor} />}
+    <ColorList colors={colors}/>
+
     </>
   )
 }
