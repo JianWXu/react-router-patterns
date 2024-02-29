@@ -1,30 +1,31 @@
 import { useState } from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import Dogs from "./Dogs"
 import Nav from './Nav'
+import DogList from "./DogList"
+import DogDetails from './DogDetails'
+import duke from "./react-router-patterns/duke.jpg"
+import perry from "./react-router-patterns/perry.jpg"
+import tubby from "./react-router-patterns/tubby.jpg"
+import whiskey from "./react-router-patterns/whiskey.jpg"
 
-let nameArr = []
 
-function App() {
-  for (let i of props.dogs){
-    nameArr.push(i.name)
-  }
+function App(props) {  
 
   return (
     <>
-    <Nav dogs={dogs}/>
-    <Switch>
-    <Route exact path="/dogs" >
-      <DogList dogs={dogs}/> // what props will this need?
-    </Route>
-    <Route path="/dogs/:name" >
-      <DogDetails name={}/> // what props will this need?
-    </Route>
-    <Redirect to="/dogs" />
-  </Switch>
+    <Nav dogs={props.dogs}/>
+    
+    <Routes>
+      <Route path="/dogs" element={<DogList dogs={props.dogs} />} />
+      
+      <Route path="/dogs/:name" element={<DogDetails dogs={props.dogs} />}/>
+        // what props will this need?
+      
+      <Route path="*" element={<Navigate to="/dogs" replace />} />
+
+    </Routes>
     </>
   )
 }
