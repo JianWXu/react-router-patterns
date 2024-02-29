@@ -1,15 +1,16 @@
 import React from "react";
 import { Link} from "react-router-dom";
 
-function ColorList(props) {
-
+function ColorList({colors}) {
 
   return (
     <div className="ColorList">
         <h3>Please select a color.</h3>
         <ul>
-        {props.colors.map((color)=>(
-            <li><Link to={`/colors/${color}`}>{color}</Link></li>
+        {colors.map((color, index)=>(
+            <li key={color.colorName}>
+                <Link to={`/colors/${color.colorName}`}>{color.colorName}</Link>
+            </li>
         ))}
         </ul>
     </div>
